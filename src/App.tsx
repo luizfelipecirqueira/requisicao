@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
 
-function App() {
+const Requisicao = () => {
+
+  const [filmes, setFilmes] = useState([]);
+
+  const handleCarregarFilmes = () => {
+
+    fetch('https://api.b7web.com.br/cinema/').then((response) => {
+      return response.json();
+    })
+    .then((json) =>{
+      setFilmes(json);
+    })
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+      <br />
+      <button onClick={handleCarregarFilmes}>Carregar Filmes</button>
+
+      <br />
+
+      <div>
+
+        <p>Total de Filmes: {filmes.length}</p>
+
+      </div>
     </div>
+
   );
 }
 
-export default App;
+export default Requisicao;
