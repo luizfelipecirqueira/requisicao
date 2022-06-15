@@ -12,16 +12,19 @@ const Requisicao = () => {
     handleCarregarFilmes();
   }, [])*/
 
-  const handleCarregarFilmes = () => {
-
-    fetch('https://api.b7web.com.br/cinema/').then((response) => {
+  const handleCarregarFilmes = async () => {
+    let response = await fetch('https://api.b7web.com.br/cinema/');
+    let json = await response.json();  
+    setFilmes(json);
+  }
+  
+  /*fetch('https://api.b7web.com.br/cinema/').then((response) => {
       return response.json();
     })
       .then((json) => {
         setFilmes(json);
       })
-
-  }
+  }*/
 
   return (
 
