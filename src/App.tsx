@@ -5,6 +5,7 @@ import { Filme } from './types/Filme';
 const Requisicao = () => {
 
   const [filmes, setFilmes] = useState<Filme[]>([]);
+  const [loading, setLoading] = useState(false);
 
 
   /* Carregar filmes sem precisar clicar no botão
@@ -13,8 +14,10 @@ const Requisicao = () => {
   }, [])*/
 
   const handleCarregarFilmes = async () => {
+    setLoading(true);
     let response = await fetch('https://api.b7web.com.br/cinema/');
-    let json = await response.json();  
+    let json = await response.json();
+    setLoading(false);
     setFilmes(json);
   }
   
@@ -34,7 +37,12 @@ const Requisicao = () => {
 
       <br />
 
-      <div>
+      {loading &&
+        <div>Carregando...</div>
+      }
+
+      {!loading &&
+        <div>
 
         <p>Total de Filmes: {filmes.length}</p>
 
@@ -47,6 +55,7 @@ const Requisicao = () => {
           ))}
         </div>
       </div>
+      }
     </div>
 
   );
