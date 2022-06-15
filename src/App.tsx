@@ -14,11 +14,18 @@ const Requisicao = () => {
   }, [])*/
 
   const handleCarregarFilmes = async () => {
-    setLoading(true);
-    let response = await fetch('https://api.b7web.com.br/cinema/');
-    let json = await response.json();
-    setLoading(false);
-    setFilmes(json);
+    try{
+      setLoading(true);
+      let response = await fetch('https://api.b7web.com.br/cinema/');
+      let json = await response.json();
+      setLoading(false);
+      setFilmes(json);
+    }
+    catch(e){
+      setLoading(false);
+      alert('Erro! Tente novamente mais tarde!');
+      console.error(e);
+    }
   }
   
   /*fetch('https://api.b7web.com.br/cinema/').then((response) => {
@@ -26,6 +33,11 @@ const Requisicao = () => {
     })
       .then((json) => {
         setFilmes(json);
+      }).catch((e) => {
+        setLoading(false);
+        setFilmes([]);
+        alert('Erro! Tente novamente mais tarde!');
+        console.error(e);
       })
   }*/
 
